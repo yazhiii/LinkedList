@@ -56,6 +56,71 @@ public class LL {
 
 
     }
+    public void insertRecursion(int val,int index)
+    {
+        head=insertRec(val,index,head);
+    }
+    public Node insertRec(int val, int index,Node node)
+    {
+        if(index==0)
+        {
+            Node temp= new Node(val,node);
+            size++;
+            return temp;
+        }
+        node.next=insertRec(val,index-1,node.next);
+        return node;
+    }
+    //Remove Duplicates from sorted LL
+    public void duplicate()
+    {
+        Node temp= head;
+        while(temp.next!=null)
+        {
+            if(temp.value==temp.next.value)
+            {
+                temp.next=temp.next.next;
+                size--;
+            }
+            else {
+                temp=temp.next;
+            }
+        }
+        tail=temp;
+        tail.next=null;
+    }
+    //merge two sorted LL
+    public LL merge(LL first,LL second)
+    {
+        Node f=first.head;
+        Node s= second.head;
+        LL ans= new LL();
+        while(f!=null && s!=null)
+        {
+            if(f.value<s.value)
+            {
+                ans.insertLast(f.value);
+                f=f.next;
+            }
+            else {
+                ans.insertLast(s.value);
+                s=s.next;
+
+            }
+        }
+        while(f!=null)
+        {
+            ans.insertLast(f.value);
+            f=f.next;
+        }
+        while(s!=null)
+        {
+            ans.insertLast(s.value);
+            s=s.next;
+        }
+        return ans;
+
+    }
     public void deleteFirst()
     {
         int val=head.value;
